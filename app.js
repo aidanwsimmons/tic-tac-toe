@@ -23,7 +23,22 @@ function GameBoard() {
     return { getBoard, markSquare, printBoard}
 }
 
-const GameController(
+function Cell() {
+    let value = 0
+
+    const addToken = (player) => {
+        value = player
+    }
+
+    const getValue = () => value
+
+    return {
+        addToken,
+        getValue
+    }
+}
+
+function GameController(
     playerOneName = "Player One",
     playerTwoName = "Player Two"
 ) {
@@ -53,6 +68,19 @@ const GameController(
     }
 
     const playRound = (row, col) => {
-        board.markSquare(row, col, )
+        board.markSquare(row, col, getActivePlayer().token)
+
+        //logic for win/loss/tie
+
+        switchPlayerTurn()
+        printNewRound()
+    }
+
+    printNewRound()
+
+    return {
+        playRound,
+        getActivePlayer,
+        getBoard: board.getBoard
     }
 }
