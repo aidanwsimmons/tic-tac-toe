@@ -118,3 +118,49 @@ function GameBoard() {
 
     return {printBoard, markCell, resetBoard}
 }
+
+function GameController() {
+    const board = GameBoard()
+
+    const players = [
+        {
+            name: 'player One',
+            token: 'X'
+        },
+        {
+            name: 'player Two',
+            token: 'O'
+        }
+    ]
+
+    let activePlayer = players[0]
+
+    //changes which player is set to take their turn
+    const switchPlayerTurn = () => {
+        activePlayer = activePlayer === players[0] ? players[1] : players[0]
+    }
+
+    //prints the board state and instructs the active player to take their turn
+    const printNewRound =  () => {
+        board.printBoard()
+        console.log(`${activePlayer.name}'s turn`)
+    }
+
+    //marks empty cell with activePlayer's token
+    const playRound = (row, col) => {
+        board.markCell(row, col, activePlayer.token)
+
+        //handle win conditions
+
+        //switch active player and print board state
+        switchPlayerTurn()
+        printNewRound()
+    }
+
+    //initial game state
+    printNewRound()
+
+    return {playRound}
+}
+
+const game = GameController
