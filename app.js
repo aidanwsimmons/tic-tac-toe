@@ -59,15 +59,52 @@ function GameController() {
         console.log(`${activePlayer.name}'s turn`)
     }
 
+    const checkWin = () => {
+        //checks rows & colums
+        for(let i = 0; i < 3; i++){
+            if(board[i][0] === board[i][1] && board[i][1] === board[i][2]){
+                return 'win'
+            }
+            if(board[0][i] === board[1][i] && board[1][i] === board[2][i]){
+                return 'win'
+            }
+        }
+
+        //checks diagonals
+        if(board[0][0] === board[1][1] && board[1][1] === board[2][2]){
+            return 'win'
+        }
+        if(board[0][2] === board[1][1] && board[1][1] === board[2][0]){
+            return 'win'
+        }
+
+        //checks for tie
+        if(board.flat().every(cell => cell !== "")){
+            return "tie"
+        }
+
+        return "no win"
+    }
+
     //marks empty cell with activePlayer's token
     const playRound = (row, col) => {
         board.markCell(row, col, activePlayer.token)
 
-        //handle win conditions
+        let result = checkWin()
 
-        //switch active player and print board state
-        switchPlayerTurn()
-        printNewRound()
+        if(result === 'win'){
+            board.printBoard()
+            console.log(`${activePlayer.name} wins`)
+        }
+        else if(result === 'tie'){
+            board.printBoard()
+            console.log('tie game')
+        }
+        else{
+            //switch active player and print board state
+            switchPlayerTurn()
+            printNewRound()
+        }
     }
 
     //initial game state
