@@ -63,7 +63,7 @@ function GameController() {
     }
 
     const checkWin = () => {
-        const currentBoard = board.getBoard
+        const currentBoard = board.getBoard()
 
         //checks rows & colums
         for(let i = 0; i < 3; i++){
@@ -79,7 +79,7 @@ function GameController() {
         if(currentBoard[0][0] === currentBoard[1][1] && currentBoard[1][1] === currentBoard[2][2]){
             return 'win'
         }
-        if(board[0][2] === currentBoard[1][1] && currentBoard[1][1] === currentBoard[2][0]){
+        if(currentBoard[0][2] === currentBoard[1][1] && currentBoard[1][1] === currentBoard[2][0]){
             return 'win'
         }
 
