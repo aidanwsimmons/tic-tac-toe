@@ -115,10 +115,16 @@ function GameController() {
         }
     }
 
+    const newGame = () => {
+        board.resetBoard()
+        activePlayer = players[0]
+        printNewRound()
+    }
+
     //initial game state
     printNewRound()
 
-    return {playRound}
+    return {playRound, newGame}
 }
 
 const game = GameController()
