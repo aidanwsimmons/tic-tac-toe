@@ -100,7 +100,7 @@ function GameBoard() {
     const markCell = (row, col, token) => {
         if(board[row - 1][col - 1] == ""){
             board[row - 1][col - 1] = token
-            printBoard()
+            // printBoard()
         }
         else{
             console.log('Cell is already occupied, please choose another')
@@ -163,4 +163,4 @@ function GameController() {
     return {playRound}
 }
 
-const game = GameController
+const game = GameController()
