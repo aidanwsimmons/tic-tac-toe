@@ -67,19 +67,19 @@ function GameController() {
 
         //checks rows & colums
         for(let i = 0; i < 3; i++){
-            if(currentBoard[i][0] === currentBoard[i][1] && currentBoard[i][1] === currentBoard[i][2]){
+            if(currentBoard[i][0] === currentBoard[i][1] && currentBoard[i][1] === currentBoard[i][2] && currentBoard[i][0] !== ""){
                 return 'win'
             }
-            if(currentBoard[0][i] === currentBoard[1][i] && currentBoard[1][i] === currentBoard[2][i]){
+            if(currentBoard[0][i] === currentBoard[1][i] && currentBoard[1][i] === currentBoard[2][i] && currentBoard[0][i] !== ""){
                 return 'win'
             }
         }
 
         //checks diagonals
-        if(currentBoard[0][0] === currentBoard[1][1] && currentBoard[1][1] === currentBoard[2][2]){
+        if(currentBoard[0][0] === currentBoard[1][1] && currentBoard[1][1] === currentBoard[2][2] && currentBoard[0][0] !== ""){
             return 'win'
         }
-        if(currentBoard[0][2] === currentBoard[1][1] && currentBoard[1][1] === currentBoard[2][0]){
+        if(currentBoard[0][2] === currentBoard[1][1] && currentBoard[1][1] === currentBoard[2][0] && currentBoard[0][2] !== ""){
             return 'win'
         }
 
