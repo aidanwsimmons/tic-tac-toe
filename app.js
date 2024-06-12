@@ -1,92 +1,5 @@
-// function GameBoard() {
-//     const rows = 3
-//     const cols = 3
-//     const board = []
-
-//     for(let i = 0; i < rows; i++){
-//         board[i] = []
-//         for(let j = 0; j < cols; j++){
-//             board[i].push(Cell())
-//         }
-//     }
-
-//     const getBoard = () => board
-
-//     const markSquare = (row, col, player) => {
-
-//     }
-
-//     const printBoard = () => {
-//         conso
-//     }
-
-//     return { getBoard, markSquare, printBoard}
-// }
-
-// function Cell() {
-//     let value = 0
-
-//     const addToken = (player) => {
-//         value = player
-//     }
-
-//     const getValue = () => value
-
-//     return {
-//         addToken,
-//         getValue
-//     }
-// }
-
-// function GameController(
-//     playerOneName = "Player One",
-//     playerTwoName = "Player Two"
-// ) {
-//     const board = GameBoard()
-
-//     const players = [
-//         {
-//             name: playerOneName,
-//             token: 'X'
-//         },
-//         {
-//             name: playerTwoName,
-//             token: 'O'
-//         }
-//     ]
-
-//     let activePlayer = players[0]
-
-//     const switchPlayerTurn = () => {
-//         activePlayer = activePlayer === players[0] ? players[1] : players[2]
-//     }
-//     const getActivePlayer = () => activePlayer
-
-//     const printNewRound = () => {
-//         board.printBoard()
-//         console.log(`${getActivePlayer().name}'s turn`)
-//     }
-
-//     const playRound = (row, col) => {
-//         board.markSquare(row, col, getActivePlayer().token)
-
-//         //logic for win/loss/tie
-
-//         switchPlayerTurn()
-//         printNewRound()
-//     }
-
-//     printNewRound()
-
-//     return {
-//         playRound,
-//         getActivePlayer,
-//         getBoard: board.getBoard
-//     }
-// }
-
-
 function GameBoard() {
+    //initial board state
     const board = [["", "", ""],
                    ["", "", ""],
                    ["", "", ""]]
@@ -100,10 +13,10 @@ function GameBoard() {
     const markCell = (row, col, token) => {
         if(board[row - 1][col - 1] == ""){
             board[row - 1][col - 1] = token
-            // printBoard()
         }
         else{
             console.log('Cell is already occupied, please choose another')
+            game.switchPlayerTurn()
         }
     }
 
@@ -160,7 +73,7 @@ function GameController() {
     //initial game state
     printNewRound()
 
-    return {playRound}
+    return {playRound, switchPlayerTurn}
 }
 
 const game = GameController()
