@@ -3,11 +3,6 @@ function GameBoard() {
     const board = [["", "", ""],
                    ["", "", ""],
                    ["", "", ""]]
-    
-    //logs board state to console
-    // const printBoard = () => {
-    //     console.log(board.map(row => row.join(" | ")).join("\n---------\n"))
-    // }
 
     //if cell is unmarked, marks game board cell with player's token
     const markCell = (row, col, token) => {
@@ -16,7 +11,6 @@ function GameBoard() {
             return true
         }
         else{
-            // console.log('Cell is already occupied, please choose another')
             return false
         }
     }
@@ -40,11 +34,11 @@ function GameController() {
 
     const players = [
         {
-            name: 'player One',
+            name: 'player X',
             token: 'X'
         },
         {
-            name: 'player Two',
+            name: 'player O',
             token: 'O'
         }
     ]
@@ -58,8 +52,7 @@ function GameController() {
 
     //prints the board state and instructs the active player to take their turn
     const printNewRound =  () => {
-        board.printBoard()
-        console.log(`${activePlayer.name}'s turn`)
+        document.querySelector('.message').textContent = `${activePlayer.name}'s Turn`;
     }
 
     const checkWin = () => {
@@ -97,12 +90,10 @@ function GameController() {
             let result = checkWin()
             
             if(result === 'win'){
-                board.printBoard()
-                console.log(`${activePlayer.name} wins`)
+                document.querySelector('.message').textContent = `${activePlayer.name} wins!`
             }
             else if(result === 'tie'){
-                board.printBoard()
-                console.log('tie game')
+                document.querySelector('.message').textContent = 'Tie game!'
             }
             else{
                 //switch active player and print board state
@@ -119,6 +110,9 @@ function GameController() {
         board.resetBoard()
         activePlayer = players[0]
         printNewRound()
+        document.querySelectorAll('.cell').forEach(cell => {
+            cell.textContent = '';
+        });
     }
 
     const getActivePlayer = () => activePlayer;
@@ -133,12 +127,23 @@ const game = GameController();
 
 document.querySelectorAll('.cell').forEach(cell => {
     cell.addEventListener('click', (e) => {
-        const row = e.target.dataset.row;
-        const col = e.target.dataset.col;
-        game.playRound(parseInt(row), parseInt(col));
-        e.target.textContent = game.getActivePlayer().token;
+        const row = parseInt(e.target.dataset.row);
+        const col = parseInt(e.target.dataset.col);
+        const token = game.getActivePlayer().token
+
+        // Check if cell is already marked
+        if (e.target.textContent !== '') {
+            return; // Exit function if cell already has content
+        }
+
+        // Play the round
+        game.playRound(row, col);
+
+        // Update the cell content after the round is played
+        e.target.textContent = token;
     });
 });
+
 
 document.getElementById('restart').addEventListener('click', () => {
     game.newGame();
