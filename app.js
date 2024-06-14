@@ -5,9 +5,9 @@ function GameBoard() {
                    ["", "", ""]]
     
     //logs board state to console
-    const printBoard = () => {
-        console.log(board.map(row => row.join(" | ")).join("\n---------\n"))
-    }
+    // const printBoard = () => {
+    //     console.log(board.map(row => row.join(" | ")).join("\n---------\n"))
+    // }
 
     //if cell is unmarked, marks game board cell with player's token
     const markCell = (row, col, token) => {
@@ -16,7 +16,7 @@ function GameBoard() {
             return true
         }
         else{
-            console.log('Cell is already occupied, please choose another')
+            // console.log('Cell is already occupied, please choose another')
             return false
         }
     }
@@ -32,7 +32,7 @@ function GameBoard() {
 
     const getBoard = () => board
 
-    return {printBoard, markCell, resetBoard, getBoard}
+    return {markCell, resetBoard, getBoard}
 }
 
 function GameController() {
@@ -121,10 +121,25 @@ function GameController() {
         printNewRound()
     }
 
+    const getActivePlayer = () => activePlayer;
+
     //initial game state
     printNewRound()
 
-    return {playRound, newGame}
+    return {playRound, newGame, getActivePlayer}
 }
 
-const game = GameController()
+const game = GameController();
+
+document.querySelectorAll('.cell').forEach(cell => {
+    cell.addEventListener('click', (e) => {
+        const row = e.target.dataset.row;
+        const col = e.target.dataset.col;
+        game.playRound(parseInt(row), parseInt(col));
+        e.target.textContent = game.getActivePlayer().token;
+    });
+});
+
+document.getElementById('restart').addEventListener('click', () => {
+    game.newGame();
+});
