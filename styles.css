@@ -33,7 +33,11 @@ h2 {
     border: 1px solid black;
     gap: 2px;
     padding: 2px;
-    background-color: #9BBEC8;
+    background-color: #acd2dd;
+}
+
+.cell {
+    border: 2px solid black;
 }
 
 button {
@@ -43,4 +47,13 @@ button {
     background-color: #164863;
     color: #DDF2FD;
     border-radius: 5px;
+    border-color: black;
+}
+
+.cell:hover {
+    background-color: #86a7b0;
+}
+
+button:hover {
+    background-color: #276f99;
 }
