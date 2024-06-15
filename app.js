@@ -120,16 +120,20 @@ function GameController() {
     //initial game state
     printNewRound()
 
-    return {playRound, newGame, getActivePlayer}
+    return {playRound, newGame, getActivePlayer, checkWin}
 }
 
 const game = GameController();
+let gameOver = false;
 
 document.querySelectorAll('.cell').forEach(cell => {
     cell.addEventListener('click', (e) => {
+        if(gameOver){
+            return;
+        }
         const row = parseInt(e.target.dataset.row);
         const col = parseInt(e.target.dataset.col);
-        const token = game.getActivePlayer().token
+        const token = game.getActivePlayer().token;
 
         // Check if cell is already marked
         if (e.target.textContent !== '') {
@@ -141,6 +145,10 @@ document.querySelectorAll('.cell').forEach(cell => {
 
         // Update the cell content after the round is played
         e.target.textContent = token;
+
+        if (game.checkWin() !== 'no win'){
+            gameOver = true
+        }
     });
 });
 
